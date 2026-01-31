@@ -6,6 +6,15 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import { NavLink, Outlet } from 'react-router-dom';
+import { BiSolidMoviePlay } from "react-icons/bi";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { MdAutoAwesomeMotion } from "react-icons/md";
+import { BiSolidCategory } from "react-icons/bi";
+import { IoPeopleSharp } from "react-icons/io5";
+
+
+
+
 
 const { Header, Sider, Content } = Layout;
 
@@ -34,23 +43,31 @@ const Sidebar = () => {
               label: <NavLink to={"/admin/actor"}>Aktiyorlar</NavLink>,
             }, {
               key: '2',
-              icon: <UserOutlined />,
+              icon: <BiSolidMoviePlay />
+,
               label: <NavLink to={"/admin/movie"}>Kinolar</NavLink>,
             }, {
               key: '3',
-              icon: <UserOutlined />,
+              icon: <FaChalkboardTeacher />
+,
               label: <NavLink to={"/admin/director"}>Derektorlar</NavLink>,
             }, {
               key: '4',
-              icon: <UserOutlined />,
+              icon: <MdAutoAwesomeMotion />,
               label: <NavLink to={"/admin/genre"}>Janrlart</NavLink>,
             },
 
 
             {
               key: '5',
-              icon: <UserOutlined />,
+              icon: <BiSolidCategory />,
               label: <NavLink to={"/admin/category"}>Category</NavLink>,
+            },
+
+            {
+              key: '6',
+              icon: <IoPeopleSharp />,
+              label: <NavLink to={"/admin/movie-actor"}>Kino Aktiyorlari</NavLink>,
             },
 
             
@@ -71,6 +88,7 @@ const Sidebar = () => {
           />
         </Header>
         <Content
+        className='overflow-y-auto h-[80vh] '
           style={{
             margin: '24px 16px',
             padding: 24,

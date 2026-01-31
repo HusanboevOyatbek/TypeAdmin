@@ -1,27 +1,22 @@
+import type { GetPropsTypes } from "@/types/GetPropsTypes";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios"
-import { useEffect, useState } from "react"
 
-function useGet({ url } :{url:string}) {
+const useGet = <T = unknown>({url , key}:GetPropsTypes) => {
 
-    const [data , setData]:[[] , React.Dispatch<React.SetStateAction<[]>>] = useState([])
-
-    const getData  = async() => {
-        try{
-            let res = await axios.get(`https://x8ki-letl-twmt.n7.xano.io/api:j6hO02gL/${url}`);
-            setData(res.data);
-            
-        }catch(err){
-            console.log(err);
-            
-        }
+    const getData = async():Promise<T> => {
+        const {data} = await axios.get<T>(`https://x8ki-letl-twmt.n7.xano.io/api:j6hO02gL/${url}`);
+        return data
     }
 
-    useEffect(() => {
-        getData()
-    }, [url] )
 
-  return data;
+    const {data , isLoading, isFetching , error} = useQuery<T>({
+        queryKey: key,
+        queryFn: getData
+    })
 
+  return {data , isLoading , isFetching , error}
 }
 
 export default useGet
+

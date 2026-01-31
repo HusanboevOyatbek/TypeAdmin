@@ -1,7 +1,24 @@
+import DirectorAddForm from "@/components/DirectorAddForm";
+import DirectorTable from "@/components/DirectorTable";
+import AddModal from "@/components/Modal";
+import useGet from "@/hook/useGet"
+import type { DirectorType } from "@/types/DirectorType";
+import { useState } from "react";
 
-function DerectorPage() {
+const DerectorPage = () => {
+  const [open, setOpen] = useState(false);
+
+  const { data, error, isLoading } = useGet<DirectorType[]>({ url: "director", key: ["directors"] })
+  console.log('DerectorPage - data:', data, 'error:', error, 'isLoading:', isLoading);
+
   return (
-    <div>DerectorPage</div>
+    <div>
+      <AddModal open={open} setOpen={setOpen} text={"Rejissyor"}>
+        <DirectorAddForm setOpen={setOpen} />
+      </AddModal>
+
+      <DirectorTable data={data} />
+    </div>
   )
 }
 

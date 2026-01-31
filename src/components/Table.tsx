@@ -1,90 +1,78 @@
-import { Flex, Space, Table, Tag } from 'antd';
+import type { ActorDataType } from '@/types/ctorTpes';
+import { Button, Image, Space, Table, } from 'antd';
 import type { TableProps } from 'antd';
-
-interface DataType {
-    key: string;
-    name: string;
-    age: number;
-    address: string;
-    tags: string[];
-}
+import axios from 'axios';
+import { useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 
 
-const ActorTable = () => {
-    const columns: TableProps<DataType>['columns'] = [
+
+
+const ActorTable = ({ data }: { data?: ActorDataType[] }) => {
+    const queryClient = useQueryClient();
+
+    async function delitActirs(el: number | string) {
+        try {
+            await axios.delete(`https://x8ki-letl-twmt.n7.xano.io/api:j6hO02gL/actor/${el}`);
+            toast.success('Actior Ochirildi');
+            queryClient.invalidateQueries({ queryKey: ['actors'] });
+        } catch (err) {
+            toast.error('Failed to delete actor');
+            console.error(err);
+        }
+    }
+    const columns: TableProps<ActorDataType>['columns'] = [
+
         {
-            title: 'Name',
-            dataIndex: 'name',
+            title: 'Images',
+            dataIndex: 'photo_url',
             key: 'name',
-            render: (text) => <a>{text}</a>,
+            render: (text: ActorDataType["photo_url"]) => <Image src={text} width={70} height={70} />
+        },
+
+        {
+            title: 'full name',
+            dataIndex: 'full_name',
+            key: 'name',
+            render: (text: ActorDataType["full_name"]) => <a>{text}</a>,
         },
         {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
+            title: 'Birth year',
+            dataIndex: 'birth_year',
+            key: 'birth_year',
         },
+
         {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
+            title: 'Country',
+            dataIndex: 'country',
+            key: 'country',
         },
+
         {
-            title: 'Tags',
-            key: 'tags',
-            dataIndex: 'tags',
-            render: (_, { tags }) => (
-                <Flex gap="small" align="center" wrap>
-                    {tags.map((tag) => {
-                        let color = tag.length > 5 ? 'geekblue' : 'green';
-                        if (tag === 'loser') {
-                            color = 'volcano';
-                        }
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
-                </Flex>
-            ),
+            title: 'Biography',
+            dataIndex: 'biography',
+            key: 'biography',
         },
+
         {
             title: 'Action',
             key: 'action',
-            render: (_, record) => (
+            render: (_: unknown, record: ActorDataType) => (
                 <Space size="middle">
-                    <a>Invite {record.name}</a>
-                    <a>Delete</a>
+                    <Button
+                        onClick={() => delitActirs(record.id)}
+                        type='primary'
+                        danger>
+                        Delete
+                    </Button>
                 </Space>
             ),
         },
     ];
 
-    const data: DataType[] = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-            tags: ['nice', 'developer'],
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-            tags: ['loser'],
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sydney No. 1 Lake Park',
-            tags: ['cool', 'teacher'],
-        },
-    ];
-    return <Table<DataType> columns={columns} dataSource={data} />;
+
+    return <Table<ActorDataType> columns={columns} dataSource={data} rowKey="id" />;
 
 };
 
