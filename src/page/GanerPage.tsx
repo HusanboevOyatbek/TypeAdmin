@@ -8,8 +8,8 @@ import GenreTable from "@/components/GenreTable";
 const GanerPage = () => {
   const [open, setOpen] = useState(false);
 
-  const { data, error, isLoading } = useGet<GenreType[]>({ url: "genre", key: ["genres"] })
-  console.log('GanerPage - data:', data, 'error:', error, 'isLoading:', isLoading);
+  const { data} = useGet<GenreType[]>({ url: "genre", key: ["genres"] })
+console.log(data);
 
   return (
     <div>

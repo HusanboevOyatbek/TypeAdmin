@@ -12,7 +12,6 @@ const CategoryAddForm = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean
     const onFinish: FormProps<CategoryType>['onFinish'] = async (values) => {
         try {
             await axios.post(`https://x8ki-letl-twmt.n7.xano.io/api:j6hO02gL/category`, values);
-            toast.success('Toifa qo\'shildi');
             setOpen(false);
             queryClient.invalidateQueries({ queryKey: ['categories'] });
         } catch (err) {
@@ -22,7 +21,7 @@ const CategoryAddForm = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean
     };
 
     const onFinishFailed: FormProps<CategoryType>['onFinishFailed'] = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+        console.log(errorInfo);
     };
 
     return (

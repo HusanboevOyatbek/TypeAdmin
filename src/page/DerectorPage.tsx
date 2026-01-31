@@ -8,8 +8,8 @@ import { useState } from "react";
 const DerectorPage = () => {
   const [open, setOpen] = useState(false);
 
-  const { data, error, isLoading } = useGet<DirectorType[]>({ url: "director", key: ["directors"] })
-  console.log('DerectorPage - data:', data, 'error:', error, 'isLoading:', isLoading);
+  const { data} = useGet<DirectorType[]>({ url: "director", key: ["directors"] })
+console.log(data);
 
   return (
     <div>

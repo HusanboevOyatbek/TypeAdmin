@@ -8,8 +8,8 @@ import { useState } from "react";
 const MoviePage = () => {
   const [open, setOpen] = useState(false);
 
-  const { data, error, isLoading } = useGet<MovieType[]>({ url: "movie", key: ["movies"] })
-  console.log('MoviePage - data:', data, 'error:', error, 'isLoading:', isLoading);
+  const { data } = useGet<MovieType[]>({ url: "movie", key: ["movies"] })
+console.log(data);
 
   return (
     <div>

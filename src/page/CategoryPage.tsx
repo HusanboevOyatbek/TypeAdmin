@@ -8,8 +8,8 @@ import CategoryAddForm from "@/components/CategoryAddForm";
 const CategoryPage = () => {
   const [open, setOpen] = useState(false);
 
-  const { data, error, isLoading } = useGet<CategoryType[]>({ url: "category", key: ["categories"] })
-  console.log('CategoryPage - data:', data, 'error:', error, 'isLoading:', isLoading);
+  const { data,  } = useGet<CategoryType[]>({ url: "category", key: ["categories"] })
+console.log(data);
 
   return (
     <div>

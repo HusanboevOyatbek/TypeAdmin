@@ -56,7 +56,6 @@ const LoginPage = ({ setIsAuth} :isAuthType) => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          {/* Username */}
           <Form.Item
             label="Username"
             name="username"
@@ -69,7 +68,6 @@ const LoginPage = ({ setIsAuth} :isAuthType) => {
             />
           </Form.Item>
 
-          {/* Password */}
           <Form.Item
             label="Password"
             name="password"
